@@ -45,7 +45,7 @@ sudo apt-get update && sudo apt-get upgrade
 ### Install ansible:
 
 ```
-sudo apt install ansible
+sudo apt-get install ansible
 ```
 
 ### Configure web-server.yml:
