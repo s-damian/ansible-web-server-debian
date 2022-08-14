@@ -1,0 +1,75 @@
+<?php
+const REGEX_VERSION = '/[0-9]+\.[0-9]+\.[0-9]+/';
+
+function getPhpOsFamily(): string
+{
+    static $cache;
+
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    return $cache = strtolower(PHP_OS_FAMILY);
+}
+
+function getMysqlInfos(): array
+{
+    $OS = getPhpOsFamily();
+    if ($OS !== 'linux') {
+        return [];
+    }
+
+    $output = shell_exec('mysql -V');
+
+    preg_match(REGEX_VERSION, $output, $version);
+
+    $distrib = preg_match('/-MariaDB/', $output) !== 0 ? 'MariaDB' : 'MySQL';
+
+    return [
+        'version' => $version[0],
+        'distrib' => $distrib,
+    ];
+}
+
+$mysqlInfos = getMysqlInfos();
+?>
+<!DOCTYPE html>
+<html lang="fr-FR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello world</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex, nofollow">
+        <style>
+            html, body, h1 {
+                margin: 0;
+                padding: 0;
+                
+            }
+
+            html {
+                font-size: 100%;
+                height: 100%;
+            }
+
+            body {
+                font-size: 16px;
+                height: 100%;
+                color: #494e52;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.2em;
+                line-height: 1.5em;
+                margin-top: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hello world</h1>
+        <p><b>Nginx version</b> : <?php echo $_SERVER['SERVER_SOFTWARE'] ?></p>
+        <p><b>PHP version</b> : <?php echo phpversion() ?></p>
+        <p><b><?php echo $mysqlInfos['distrib'] ?? 'MySQL' ?> version</b> : <?php echo $mysqlInfos['version'] ?? '' ?></p>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+
+user {{ linux_user }};
+worker_processes auto;
+
+error_log /var/log/nginx/error.log warn;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /var/log/nginx/access.log main;
+
+    charset utf-8;
+
+    #### TCP
+    # Allows forcing the use of the sendfile system call for anything related to sending files (default: off)
+    sendfile on;
+
+    # Optimizes the quantity of information sent at one time (default: off)
+    tcp_nopush on;
+
+    #### Buffers
+    # Sets the maximum quantity of GET or POST data that will be stored in RAM (default: 8k|16k)
+    client_body_buffer_size 16K;
+
+    # Maximum size of requests sent by the client (useful for uploads) (default: 1m)
+    # (must have the same value as "upload_max_filesize" from php.ini)
+    client_max_body_size 200m;
+
+    #### Timeouts
+    # Allows the server to close the connection on an unresponsive client, this will free up memory (default: off)
+    reset_timedout_connection on;
+
+    # Set the keepalive timeout and also the Keep-Alive header (default: 75s)
+    keepalive_timeout 65;
+
+    #### Gzip
+    gzip on;
+    gzip_types text/plain application/xml;
+    gzip_proxied no-cache no-store private expired auth;
+    gzip_min_length 1000;
+
+    #### Security
+    # Do not send nginx version number in error pages and server header
+    server_tokens off;
+
+    # Do not list folder contents
+    autoindex off;
+
+    #### Conf
+    # Load conf files
+    include /etc/nginx/conf.d/*.conf;
+}

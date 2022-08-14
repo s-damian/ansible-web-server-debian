@@ -1,0 +1,76 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Installing the LEMP server
+  hosts: webservers
+  remote_user: root
+
+  # Variables
+  vars:
+    # ---------- OS ---------- #
+    # Your linux user
+    # REQUIRED
+    linux_user: user_test
+
+    # Set OS and PHP timezone
+    linux_timezone: 'UTC'
+    # ---------- /OS ---------- #
+
+    # ---------- Your websites ---------- #
+    # Your domains
+    # REQUIRED
+    domains:
+      - www.your-domain.com
+    
+    # Path of the public directory of your website
+    public_path: public
+    # ---------- /Your websites ---------- #
+
+    # ---------- MariaDB ---------- #
+    # Your MariaDB super-user
+    # REQUIRED
+    mariadb_super_user_username: super_user
+    mariadb_super_user_password: test
+
+    # Your prod MariaDB user
+    # REQUIRED
+    mariadb_prod_username: user_prod
+    mariadb_prod_password: test
+
+    # MariaDB parameters
+    mariadb_collation: utf8mb4_unicode_ci
+    mariadb_encoding: utf8mb4
+    mariadb_host: localhost
+    mariadb_port: 3306
+    # ---------- /MariaDB ---------- #
+
+    # ---------- PhpMyAdmin ---------- #
+    # PhpMyAdmin Path
+    phpmyadmin_path: phpmyadmin
+
+    phpmyadmin_blowfish_secret: '3K2*%<+a^#^!)1?ti~Pr$#Tzmp_$t5Mj'
+    # ---------- /PhpMyAdmin ---------- #
+
+    # ---------- Versions ---------- #
+    # PHP version. Supported: 8.0, 8.1
+    version_php: 8.1
+
+    # MariaDB version. Supported: 10.5, 10.6, 10.7
+    version_mariadb: 10.7
+
+    # PhpMyAdmin version
+    version_phpmyadmin: 5.2.0
+    # ---------- /Versions ---------- #
+
+  # Roles
+  roles:
+    - start
+    - domains-architecture
+    - php
+    - nginx-step1
+    - nginx-step2
+    - mariadb
+    - phpmyadmin
+    - end
+...

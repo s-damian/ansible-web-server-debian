@@ -1,0 +1,25 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Creation of the DB {{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod
+  mysql_db:
+    name: "{{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod"
+    state: present
+    collation: '{{ mariadb_collation }}'
+    encoding: '{{ mariadb_encoding }}'
+    login_host: '{{ mariadb_host }}'
+    login_port: '{{ mariadb_port }}'
+    login_user: '{{ mariadb_super_user_username }}'
+    login_password: '{{ mariadb_super_user_password }}'
+
+# CREATE USER 'user_prod'@'localhost' IDENTIFIED BY 'XXXXX';
+# GRANT ALL PRIVILEGES ON domain_user_prod.* to 'user_prod'@'localhost';
+- name: Create user {{ mariadb_prod_username }} for the DB {{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod
+  mysql_user:
+    name: '{{ mariadb_prod_username }}'
+    password: '{{ mariadb_prod_password }}'
+    priv: "{{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod.*:ALL"
+    login_host: '{{ mariadb_host }}'
+    login_port: '{{ mariadb_port }}'
+    state: present

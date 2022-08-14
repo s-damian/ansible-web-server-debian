@@ -1,0 +1,18 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Create /etc/nginx/includes folder
+  file:
+    path: /etc/nginx/includes
+    state: directory
+
+- name: Create /etc/nginx/includes/locations.conf file (to include in domain conf)
+  template:
+    src: includes/locations.conf.j2
+    dest: /etc/nginx/includes/locations.conf
+
+- name: Create /etc/nginx/includes/locations-php-{{ version_php }}.conf file (to include in domain conf)
+  template:
+    src: includes/locations-php.conf.j2
+    dest: /etc/nginx/includes/locations-php-{{ version_php }}.conf

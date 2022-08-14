@@ -1,0 +1,42 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Check if we already have phpmyadmin
+  stat:
+    path: /home/{{ linux_user }}/www/phpmyadmin
+  register: phpmyadmin_exist
+
+- name: Download and unzip phpMyAdmin-{{ version_phpmyadmin }}-all-languages.zip
+  unarchive:
+    src: https://files.phpmyadmin.net/phpMyAdmin/{{ version_phpmyadmin }}/phpMyAdmin-{{ version_phpmyadmin }}-all-languages.zip
+    dest: /home/{{ linux_user }}/www
+    remote_src: yes
+  when: phpmyadmin_exist.stat.exists == False
+
+- name: Rename phpMyAdmin-{{ version_phpmyadmin }}-all-languages.zip to phpmyadmin
+  command: mv /home/{{ linux_user }}/www/phpMyAdmin-{{ version_phpmyadmin }}-all-languages /home/{{ linux_user }}/www/phpmyadmin
+  when: phpmyadmin_exist.stat.exists == False
+
+- name: blowfish_secret - cp /home/{{ linux_user }}/www/phpmyadmin/config.sample.inc.php /home/{{ linux_user }}/www/phpmyadmin/config.inc.php
+  command: cp /home/{{ linux_user }}/www/phpmyadmin/config.sample.inc.php /home/{{ linux_user }}/www/phpmyadmin/config.inc.php
+  when: phpmyadmin_exist.stat.exists == False
+
+- name: blowfish_secret - configure blowfish_secret
+  lineinfile:
+    dest: /home/{{ linux_user }}/www/phpmyadmin/config.inc.php
+    regexp: ".*'blowfish_secret'.*"
+    line: "$cfg['blowfish_secret'] = '{{ phpmyadmin_blowfish_secret }}';"
+  when: phpmyadmin_exist.stat.exists == False
+
+- name: $cfg['TempDir'] - mkdir /home/{{ linux_user }}/www/phpmyadmin/tmp et chown {{ linux_user }}:{{ linux_user }} -R /home/{{ linux_user }}/www/phpmyadmin/tmp
+  file:
+    path: /home/{{ linux_user }}/www/phpmyadmin/tmp
+    state: directory
+    owner: '{{ linux_user }}'
+    group: '{{ linux_user }}'
+  when: phpmyadmin_exist.stat.exists == False
+
+- name: Installation on domains
+  include_tasks: domain.yml
+  with_items: '{{ domains }}'

@@ -1,0 +1,98 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+# ------------------------------ Install PHP ------------------------------
+# sudo apt-get install software-properties-common apt-transport-https lsb-release ca-certificates
+- name: Installation of useful packages
+  apt:
+    pkg:
+      - software-properties-common
+      - apt-transport-https
+      - lsb-release
+      - ca-certificates
+    state: latest
+
+# sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+- name: Ondrej Sury - Download the GPG key 
+  get_url:
+    url:  https://packages.sury.org/php/apt.gpg
+    dest: /etc/apt/trusted.gpg.d/php.gpg
+
+# sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+- name: Ondrej Sury - Add the repository to sources list.
+  shell: sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
+# sudo apt-get update
+- name: APT update
+  apt:
+    update_cache: yes
+
+- name: Install PHP {{ version_php }} and PHP-FPM and few packages
+  apt:
+    pkg: '{{ php_packages }}'
+    state: latest
+# ------------------------------ /Install PHP ------------------------------
+
+# ------------------------------ php.ini ------------------------------
+- name: Configuring date.timezone of php.ini
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/php.ini
+    regexp: 'date.timezone[\s]?='
+    line: 'date.timezone = {{ timezone }}'
+
+- name: Configuring upload_max_filesize of php.ini
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/php.ini
+    regexp: 'upload_max_filesize[\s]?='
+    line: 'upload_max_filesize = {{ upload_max_filesize }}'
+
+- name: Configuring post_max_size of php.ini
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/php.ini
+    regexp: 'post_max_size[\s]?='
+    line: 'post_max_size = {{ post_max_size }}'
+
+- name: Configuring memory_limit of php.ini
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/php.ini
+    regexp: 'memory_limit[\s]?='
+    line: 'memory_limit = {{ memory_limit }}'
+
+- name: Configuring max_input_time of php.ini
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/php.ini
+    regexp: 'max_input_time[\s]?='
+    line: 'max_input_time = {{ max_input_time }}'
+# ------------------------------ /php.ini ------------------------------
+
+# ------------------------------ www.conf ------------------------------
+- name: Configuration of the user of the /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+    regexp: '^user[\s]?='
+    line: 'user = {{ linux_user }}'
+
+- name: Configuration of the group of the /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+    regexp: '^group[\s]?='
+    line: 'group = {{ linux_user }}'
+
+- name: Configuration of the listen.owner of the /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+    regexp: '^listen.owner[\s]?='
+    line: 'listen.owner = {{ linux_user }}'
+
+- name: Configuration of the listen.group of the/etc/php/{{ version_php }}/fpm/pool.d/www.conf
+  lineinfile:
+    dest: /etc/php/{{ version_php }}/fpm/pool.d/www.conf
+    regexp: '^listen.group[\s]?='
+    line: 'listen.group = {{ linux_user }}'
+# ------------------------------ /www.conf ------------------------------
+
+- name: Restart php{{ version_php }}-fpm
+  service:
+    name: php{{ version_php }}-fpm
+    state: restarted

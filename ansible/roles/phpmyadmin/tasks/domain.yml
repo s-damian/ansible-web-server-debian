@@ -1,0 +1,9 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Installation on the domain {{ item }} with a symlink
+  file:
+    path: /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }}/{{ phpmyadmin_path }}
+    src: /home/{{ linux_user }}/www/phpmyadmin
+    state: link

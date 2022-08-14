@@ -1,0 +1,104 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+# ------------------------------ Install MariaDB ------------------------------
+# sudo apt-get install software-properties-common
+- name: Installation of useful packages
+  apt:
+    pkg:
+      - software-properties-common
+    state: latest
+
+- name: Check if we have already installed MariaDB on the server
+  stat:
+    path: /etc/apt/sources.list.d/mariadb.list
+  register: mariadb_exist
+
+# Import the GnuPG Signing Key
+# sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+- name: apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+  shell: apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+  when: mariadb_exist.stat.exists == False
+
+# sudo sh -c 'echo "deb [arch=amd64] https://mirrors.xtom.ee/mariadb/repo/10.6/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
+- name: Configure apt repository for mariadb {{ version_mariadb }}
+  shell: sh -c 'echo "deb [arch=amd64] https://mirrors.xtom.ee/mariadb/repo/{{ version_mariadb }}/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
+
+# sudo apt-get update
+- name: apt-get update
+  apt:
+    update_cache: yes
+  when: mariadb_exist.stat.exists == False
+
+# sudo apt-get install mariadb-server mariadb-client libmariadb3 mariadb-backup mariadb-common python-mysqldb
+- name: Install MariaDB
+  apt:
+    pkg:
+      - mariadb-server
+      - galera-4
+      - mariadb-client
+      - libmariadb3
+      - mariadb-backup
+      - mariadb-common
+      - python3-mysqldb # n'est pas dans https://mariadb.com/kb/en/installing-mariadb-deb-files/#installing-mariadb-packages-with-apt (mais utile car dépendance)
+    state: latest
+  when: mariadb_exist.stat.exists == False
+# ------------------------------ /Install MariaDB ------------------------------
+
+- name: service mysql restart
+  service:
+    name: mysql
+    state: restarted
+
+# ------------------------------ mysql_secure_installation ------------------------------
+# [mysql_secure_installation] Change the root password?
+# No need, because since MariaDB 10.4 the root user has 'invalid' in 'Password'.
+# And as long as we haven't changed his password, he can't connect with the "mysql_native_password" plugin.
+# He can just login (without password) with the "unix_socket" plugin as long as the login is attempted from a process belonging to the root user account of the OS.
+# Doc: https://mariadb.com/kb/en/authentication-from-mariadb-104/
+
+# [mysql_secure_installation] Remove anonymous users?
+- name: Security - Delete anonymous users
+  shell: echo "DELETE FROM mysql.user WHERE User='';" | mysql -uroot
+
+# [mysql_secure_installation] Disallow root login remotely?
+- name: Security - Remove users who can log in remotely
+  shell: echo "DELETE FROM mysql.user WHERE Host NOT IN ('localhost', '127.0.0.1', '::1');" | mysql -uroot
+
+# [mysql_secure_installation] Remove test database and access to it?
+- name: Security - Delete test databases
+  shell: echo "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" | mysql -uroot
+# ------------------------------ /mysql_secure_installation ------------------------------
+
+# CREATE USER 'super_user'@'localhost' IDENTIFIED BY 'XXXXX';
+# GRANT ALL PRIVILEGES ON *.* to 'super_user'@'localhost' WITH GRANT OPTION;
+- name: Create user {{ mariadb_super_user_username }}
+  mysql_user:
+    name: '{{ mariadb_super_user_username }}'
+    password: '{{ mariadb_super_user_password }}'
+    priv: '*.*:ALL,GRANT'
+    login_host: '{{ mariadb_host }}'
+    login_port: '{{ mariadb_port }}'
+    state: present
+
+- name: FLUSH PRIVILEGES
+  shell: echo "FLUSH PRIVILEGES;" | mysql -uroot
+
+- name: Restart MysSQL
+  service:
+    name: mysql
+    state: restarted
+
+- name: Configuration of domain DB
+  include_tasks: domain.yml
+  with_items: '{{ domains }}'
+  when: mariadb_exist.stat.exists == False
+
+- name: FLUSH PRIVILEGES
+  shell: echo "FLUSH PRIVILEGES;" | mysql -uroot
+
+- name: Restart MysSQL
+  service:
+    name: mysql
+    state: restarted

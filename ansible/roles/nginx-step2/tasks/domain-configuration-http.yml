@@ -1,0 +1,8 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Creation de la configuration HTTP du domaine {{ item }} avec comme fichier de conf /etc/nginx/conf.d/{{ item }}.conf
+  template:
+    src: conf.d/http-server.conf.j2
+    dest: /etc/nginx/conf.d/{{ item }}.conf

@@ -1,0 +1,23 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name www.{{ item }};
+
+    root /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }};
+    index index.php index.html index.htm;
+
+    include includes/locations.conf;
+    include includes/locations-php-{{ version_php }}.conf;
+}
+
+
+# Without "www."
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name {{ item }};
+
+    return 301 http://www.{{ item }}$request_uri;
+}

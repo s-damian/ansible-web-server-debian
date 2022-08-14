@@ -1,0 +1,18 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+- name: Remove apache2
+  apt:
+    name: apache2
+    state: absent
+    purge: yes
+    force: yes
+
+- name: Change the timezone - Put {{ linux_timezone }}
+  shell: sudo timedatectl set-timezone {{ linux_timezone }}
+
+- name: Update and upgrade
+  apt:
+    update_cache: yes
+    upgrade: 'yes'

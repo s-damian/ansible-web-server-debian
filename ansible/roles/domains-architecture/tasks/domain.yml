@@ -1,0 +1,15 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+# Create the public folder for this domain
+- name: Create /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }} folder
+  file:
+    path: /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }}
+    state: directory
+
+# Create the index.php file for this domain
+- name: Create /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }}/index.php file
+  template:
+    src: index.php.j2
+    dest: /home/{{ linux_user }}/www/websites/{{ item }}/{{ public_path }}/index.php

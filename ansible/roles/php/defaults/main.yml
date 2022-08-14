@@ -1,0 +1,39 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+# PHP packages to install
+php_packages:
+  - php{{ version_php }}
+  - php{{ version_php }}-fpm
+  - php{{ version_php }}-cgi
+  - php{{ version_php }}-cli
+  - php{{ version_php }}-curl
+  - php{{ version_php }}-mbstring
+  #- php{{ version_php }}-json  # since PHP 8.0 is already installed by default
+  - php{{ version_php }}-xml
+  - php{{ version_php }}-zip
+  - php{{ version_php }}-mysql
+  - php{{ version_php }}-pgsql
+  - php{{ version_php }}-imagick
+  - php{{ version_php }}-intl
+  - php{{ version_php }}-gd
+  - php{{ version_php }}-bcmath
+  - php{{ version_php }}-pdo-sqlite
+
+timezone: '{{ linux_timezone }}'
+
+# The maximum size in bytes of a file to upload (default: 2M).
+# Must have the same value as "client_max_body_size" from "nginx.conf".
+upload_max_filesize: "200M"
+
+# Sets the maximum size of data received by the POST method (default: 8M).
+# To upload large files, this value should be larger than the "upload_max_filesize" value.
+post_max_size: "800M"
+
+# Maximum amount (in bytes) of memory a script can consume (default: 128M).
+# In general, memory_limit should be larger than "post_max_size".
+memory_limit: "1280M"
+
+# Specifies the maximum time to parse input data, via POST and GET (default: 60).
+max_input_time: "600"

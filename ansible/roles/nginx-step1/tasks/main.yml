@@ -1,0 +1,51 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-lemp-server-debian
+
+# ------------------------------ Install Nginx ------------------------------
+# sudo apt install curl gnupg2 ca-certificates lsb-release
+- name: Installation of useful packages
+  apt:
+    pkg:
+      - curl
+      - gnupg2
+      - ca-certificates
+      - lsb-release
+    state: latest
+
+# sudo sh -c 'echo "deb http://nginx.org/packages/debian $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx.list'
+- name: Configure apt repository for stable nginx packages
+  shell: sh -c 'echo "deb http://nginx.org/packages/debian $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx.list'
+
+# sudo mkdir /opt/nginx
+- name: Creation of the /opt/nginx folder to accommodate nginx_signing.key
+  file:
+    path: /opt/nginx
+    state: directory
+
+# sudo curl -fsSL -o /opt/nginx/nginx_signing.key https://nginx.org/keys/nginx_signing.key
+- name: Import an official nginx signing key so apt can verify the authenticity of packages
+  get_url:
+    url: https://nginx.org/keys/nginx_signing.key
+    dest: /opt/nginx
+
+# sudo apt-key add /opt/nginx/nginx_signing.key
+- name: apt-key add /opt/nginx/nginx_signing.key
+  shell: apt-key add /opt/nginx/nginx_signing.key
+
+# sudo apt-get update
+- name: Update
+  apt:
+    update_cache: yes
+
+# sudo apt-get install nginx
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+# ------------------------------ /Install Nginx ------------------------------
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
