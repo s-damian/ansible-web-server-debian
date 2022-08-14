@@ -1,6 +1,6 @@
 ---
 # @author Stephen Damian <contact@devandweb.fr>
-# @link   https://github.com/s-damian/ansible-lemp-server-debian
+# @link   https://github.com/s-damian/ansible-web-server-debian
 
 - name: Update and upgrade
   apt:
