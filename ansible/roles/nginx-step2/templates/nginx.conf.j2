@@ -53,6 +53,10 @@ http {
     # Do not send nginx version number in error pages and server header
     server_tokens off;
 
+    #### Add headers
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
     # Do not list folder contents
     autoindex off;
 
