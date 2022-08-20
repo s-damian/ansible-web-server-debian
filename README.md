@@ -1,4 +1,4 @@
-# Ansible - Web Server with Nginx or Apache
+# Ansible - Web Server - Nginx or Apache
 
 ## Ansible Role : LEMP or LAMP server on Debian
 
