@@ -85,3 +85,9 @@ ansible-playbook -i /etc/ansible/hosts /etc/ansible/web-server.yml
 You must change the path of PhpMyAdmin, or remove PhpMyAdmin from public access.
 
 Don't forget to secure your server with iptables, fail2ban, etc.
+
+You can Configure SSL for your websites (with Certbot for example).
+
+### Performance
+
+To improve performance. You can add cache to your Nginx / Apache configuration.
