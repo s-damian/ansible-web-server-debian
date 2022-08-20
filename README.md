@@ -6,10 +6,10 @@ This ansible script allows you to automate the configuration of a **LEMP web ser
 
 These **ansible roles** will automate the deployment for you:
 
-* Install Nginx or Apache
-* Install MariaDB (supported versions: 10.5, 10.6, 10.7)
-* Install PHP (supported versions: 8.0, 8.1)
-* Install PhpMyAdmin
+* Install **Nginx** or **Apache**
+* Install **MariaDB** (supported versions: 10.5, 10.6, 10.7)
+* Install **PHP** (supported versions: 8.0, 8.1)
+* Install **PhpMyAdmin**
 * Preparing the skeleton of your websites
 
 [![Ansible](https://raw.githubusercontent.com/s-damian/medias/main/technos/ansible.webp)](https://github.com/s-damian)
@@ -17,6 +17,7 @@ These **ansible roles** will automate the deployment for you:
 [![PHP](https://raw.githubusercontent.com/s-damian/medias/main/technos/php.webp)](https://github.com/s-damian)
 [![MariaDB](https://raw.githubusercontent.com/s-damian/medias/main/technos/mariadb.webp)](https://github.com/s-damian)
 [![Nginx](https://raw.githubusercontent.com/s-damian/medias/main/technos/nginx.webp)](https://github.com/s-damian)
+[![Apache](https://raw.githubusercontent.com/s-damian/medias/main/technos/apache.webp)](https://github.com/s-damian)
 
 ### Author
 
