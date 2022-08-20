@@ -13,15 +13,19 @@
     # REQUIRED
     linux_user: user_test
 
+    # Path of your websites in your user directory
+    # /home/{{ linux_user }}/{{ website_path }}/{{ domain }}
+    website_path: www/sites
+
     # Set OS and PHP timezone
     linux_timezone: 'UTC'
     # ---------- /OS ---------- #
 
     # ---------- Your websites ---------- #
-    # Your domains
+    # Your domains (without "www.". example: your-domain.com)
     # REQUIRED
     domains:
-      - www.your-domain.com
+      - your-domain.com
     
     # Path of the public directory of your website
     public_path: public
@@ -68,8 +72,8 @@
     - start
     - domains-architecture
     - php
-    - nginx-step1
-    - nginx-step2
+    - nginx-step1 # Install Nginx
+    - nginx-step2 # Conf Nginx
     - mariadb
     - phpmyadmin
     - end
