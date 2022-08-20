@@ -38,6 +38,36 @@
     name: rewrite
   when: http_server == "apache"
 
+- name: sudo a2enmod cache
+  community.general.apache2_module:
+    state: present
+    name: cache
+  when: http_server == "apache"
+
+- name: sudo a2enmod cache_disk
+  community.general.apache2_module:
+    state: present
+    name: cache_disk
+  when: http_server == "apache"
+
+- name: sudo a2enmod expires
+  community.general.apache2_module:
+    state: present
+    name: expires
+  when: http_server == "apache"
+
+- name: sudo a2enmod headers
+  community.general.apache2_module:
+    state: present
+    name: headers
+  when: http_server == "apache"
+
+- name: sudo a2enmod deflate
+  community.general.apache2_module:
+    state: present
+    name: deflate
+  when: http_server == "apache"
+
 - name: sudo a2enconf php8.1-fpm.conf
   shell: a2enconf php8.1-fpm.conf
   when: http_server == "apache"
