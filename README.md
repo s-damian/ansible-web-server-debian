@@ -4,7 +4,7 @@
 
 This ansible script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server** on **Debian 11** server.
 
-This **ansible roles** will you install this:
+These **ansible roles** will you install this:
 
 * Nginx or Apache
 * MariaDB (supported versions: 10.5, 10.6, 10.7)
