@@ -4,7 +4,7 @@
 
 - name: Creation de la configuration HTTP du domaine {{ item }} avec comme fichier de conf /etc/apache2/sites-available/{{ item }}.conf
   template:
-    src: sites-available/http-server.conf.j2
+    src: sites-available/http-vhost.conf.j2
     dest: /etc/apache2/sites-available/{{ item }}.conf
 
 # Create the .htaccess file for this domain

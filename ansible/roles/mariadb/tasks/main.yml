@@ -8,6 +8,7 @@
   apt:
     pkg:
       - software-properties-common
+      - gnupg2
     state: latest
 
 - name: Check if we have already installed MariaDB on the server
