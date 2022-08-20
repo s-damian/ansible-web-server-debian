@@ -1,6 +1,6 @@
-# Ansible : LEMP Server / LAMP Server on Debian 11
+# Ansible : LEMP / LAMP Server on Debian 11
 
-## Web Server with: Linux - Nginx or Apache - MariaDB - PHP
+## Web Server with Linux - Nginx or Apache - MariaDB - PHP
 
 This **ansible** script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server**.
 
@@ -30,7 +30,7 @@ This Ansible script was made by [Stephen Damian](https://www.linkedin.com/in/ste
 
 This example is configured for a Debian **local server**.
 
-If you want to configure there for a Debian **remote server**, you need to configure the **/ansible/hosts** file.
+If you want to configure there for a Debian **remote server**, you need to configure the **ansible/hosts** file.
 
 ### Create your home user (if it doesn't exist yet):
 
@@ -52,13 +52,13 @@ sudo apt-get install ansible
 
 ### Configure web-server.yml:
 
-You need to configure your **/ansible/web-server.yml** file.
+You need to configure your **ansible/web-server.yml** file.
 
 You must configure at least all the **REQUIRED** lines.
 
 ### Ansible folder:
 
-Send the **/ansible** folder present in this package to the **/etc** folder of your Debian server.
+Send the **ansible** folder present in this package to the **etc** folder of your Debian server.
 
 ### Run the ansible script:
 
