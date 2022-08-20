@@ -4,7 +4,7 @@
 
 This ansible script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server** on **Debian 11** server.
 
-These **ansible roles** will you automate this:
+These **ansible roles** will automate the deployment for you:
 
 * Install Nginx or Apache
 * Install MariaDB (supported versions: 10.5, 10.6, 10.7)
@@ -90,4 +90,4 @@ You can Configure SSL for your websites (with Certbot for example).
 
 ### Performance
 
-To improve performance. You can add cache to your Nginx / Apache configuration.
+To improve performance, you can add cache to your Nginx / Apache configuration.
