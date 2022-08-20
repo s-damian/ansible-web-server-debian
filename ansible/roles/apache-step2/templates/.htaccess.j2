@@ -20,13 +20,7 @@
     RewriteRule ^ index.php [L]
 
     # Forbid without www
-    #RewriteCond %{HTTP_HOST} !^www\. [NC]
-    #RewriteCond %{HTTP_HOST} !^localhost$ [NC]
-    #RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-    # Forbid HTTP (force HTTPS)
-    #RewriteCond %{HTTPS} !=on
-    #RewriteCond %{HTTP_HOST} !^localhost$ [NC]
-    #RewriteCond %{HTTP_HOST} !^(.*)\.local$ [NC]
-    #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} !^www\. [NC]
+    RewriteCond %{HTTP_HOST} !^(.*)\.local$ [NC]
+    RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>

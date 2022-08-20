@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName www.{{ item }}
-    ServerAlias www.{{ item }}
+    ServerAlias {{ item }} www.{{ item }}
 
 	DocumentRoot /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}
 
