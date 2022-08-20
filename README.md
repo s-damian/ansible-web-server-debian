@@ -4,7 +4,12 @@
 
 This **ansible** script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server**.
 
-As HTTP server you can choose between **Nginx** and **Apache**.
+This ansible script will you install this:
+
+* Nginx or Apache
+* MariaDB (supported versions: 10.5, 10.6, 10.7)
+* PHP (supported versions: 8.0, 8.1)
+* PhpMyAdmin
 
 [![Ansible](https://raw.githubusercontent.com/s-damian/medias/main/technos/ansible.webp)](https://github.com/s-damian)
 [![Linux](https://raw.githubusercontent.com/s-damian/medias/main/technos/linux.webp)](https://github.com/s-damian)

@@ -69,6 +69,7 @@
     version_mariadb: 10.7
 
     # PhpMyAdmin version
+    # See available versions here: https://www.phpmyadmin.net/files/
     version_phpmyadmin: 5.2.0
     # ---------- /Versions ---------- #
 
