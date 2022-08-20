@@ -64,7 +64,7 @@ You must configure at least all the **REQUIRED** lines.
 
 ### Ansible folder:
 
-Send the **ansible** folder present in this package to the **etc** folder of your Debian server.
+Send the **ansible** folder present in this package to the **/etc** folder of your Debian server.
 
 ### Run the ansible script:
 
