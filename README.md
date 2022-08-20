@@ -1,10 +1,10 @@
-# Ansible : Web Server with Nginx or Apache
+# Ansible - Web Server with Nginx or Apache
 
-## Web Server with Linux - Nginx or Apache - MariaDB - PHP
+## Ansible Role : LEMP or LAMP server on Debian
 
 This ansible script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server** on **Debian 11** server.
 
-This **ansible roles** will you install this:
+This **ansible playbook** will you install this:
 
 * Nginx or Apache
 * MariaDB (supported versions: 10.5, 10.6, 10.7)
