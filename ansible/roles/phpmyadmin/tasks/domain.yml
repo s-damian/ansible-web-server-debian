@@ -4,6 +4,6 @@
 
 - name: Installation on the domain {{ item }} with a symlink
   file:
-    path: /home/{{ linux_user }}/{{ website_path }}/{{ item }}/{{ public_path }}/{{ phpmyadmin_path }}
+    path: /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}/{{ phpmyadmin_path }}
     src: /home/{{ linux_user }}/www/phpmyadmin
     state: link

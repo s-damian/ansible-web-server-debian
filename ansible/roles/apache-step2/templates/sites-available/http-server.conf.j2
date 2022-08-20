@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+    ServerName www.{{ item }}
+    ServerAlias www.{{ item }}
+
+	DocumentRoot /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}
+
+    <Directory /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    <FilesMatch "^\.">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</VirtualHost>

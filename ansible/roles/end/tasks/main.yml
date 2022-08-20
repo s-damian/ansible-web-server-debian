@@ -8,6 +8,7 @@
     state: absent
     purge: yes
     force: yes
+  when: http_server != "apache"
 
 - name: Change the timezone - Put {{ linux_timezone }}
   shell: sudo timedatectl set-timezone {{ linux_timezone }}

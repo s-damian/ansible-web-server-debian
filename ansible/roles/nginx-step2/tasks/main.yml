@@ -4,35 +4,42 @@
 
 - name: Creation of configuration files to include in nginx
   include_tasks: nginx-architecture-includes.yml
+  when: http_server == "nginx"
 
 - name: HTTP configuration of domains
   include_tasks: domain-configuration-http.yml
   with_items: '{{ domains }}'
+  when: http_server == "nginx"
 
 - name: Deletion (temporary) - rm /etc/nginx/conf.d/default.conf
   file:
     path: /etc/nginx/conf.d/default.conf
     state: absent
+  when: http_server == "nginx"
 
 - name: Deletion (temporary) - rm /etc/nginx/nginx.conf
   file:
     path: /etc/nginx/nginx.conf
     state: absent
+  when: http_server == "nginx"
 
 - name: Create /etc/nginx/conf.d/default.conf file (to redirect IP to domain_default)
   template:
     src: conf.d/default.conf.j2
     dest: /etc/nginx/conf.d/default.conf
+  when: http_server == "nginx"
 
 - name: Create /etc/nginx/nginx.conf file (pour mettre user {{ linux_user }})
   template:
     src: nginx.conf.j2
     dest: /etc/nginx/nginx.conf
+  when: http_server == "nginx"
 
 - name: service nginx restart
   service:
     name: nginx
     state: restarted
+  when: http_server == "nginx"
 
 # Set user and group permissions of /home/your_user/www
 - name: chown {{ linux_user }}:{{ linux_user }} -R /home/{{ linux_user }}/www
@@ -41,3 +48,4 @@
     owner: '{{ linux_user }}'
     group: '{{ linux_user }}'
     recurse: yes
+  when: http_server == "nginx"

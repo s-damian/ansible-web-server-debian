@@ -4,7 +4,7 @@ server {
 
     server_name www.{{ item }};
 
-    root /home/{{ linux_user }}/{{ website_path }}/{{ item }}/{{ public_path }};
+    root /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }};
     index index.php index.html index.htm;
 
     include includes/locations.conf;

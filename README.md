@@ -1,8 +1,10 @@
-# Ansible : LEMP Server on Debian 11
+# Ansible : LEMP Server / LAMP Server on Debian 11
 
-## Linux - Nginx - MariaDB - PHP
+## Web Server with: Linux - Nginx or Apache - MariaDB - PHP
 
-This ansible script allows you to automate the configuration of a **LEMP web server**.
+This **ansible** script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server**.
+
+As HTTP server you can choose between **Nginx** and **Apache**.
 
 [![Ansible](https://raw.githubusercontent.com/s-damian/medias/main/technos/ansible.webp)](https://github.com/s-damian)
 [![Linux](https://raw.githubusercontent.com/s-damian/medias/main/technos/linux.webp)](https://github.com/s-damian)

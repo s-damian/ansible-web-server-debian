@@ -1,0 +1,50 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-web-server-debian
+
+#- name: Creation of configuration files to include in apache
+#  include_tasks: apache-architecture-includes.yml
+
+- name: HTTP configuration of domains
+  include_tasks: domain-configuration-http.yml
+  with_items: '{{ domains }}'
+  when: http_server == "apache"
+
+- name: Deletion (temporary) - rm /etc/apache2/sites-available/000-default.conf
+  file:
+    path: /etc/apache2/sites-available/000-default.conf
+    state: absent
+  when: http_server == "apache"
+
+- name: Deletion (temporary) - rm /etc/apache2/apache2.conf
+  file:
+    path: /etc/apache2/apache2.conf
+    state: absent
+  when: http_server == "apache"
+
+- name: Create /etc/apache2/sites-available/000-default.conf file (to redirect IP to domain_default)
+  template:
+    src: sites-available/000-default.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+  when: http_server == "apache"
+
+- name: Create /etc/apache2/apache2.conf file (pour mettre user {{ linux_user }})
+  template:
+    src: apache2.conf.j2
+    dest: /etc/apache2/apache2.conf
+  when: http_server == "apache"
+
+- name: Retart apache2
+  service:
+    name: apache2
+    state: restarted
+  when: http_server == "apache"
+
+# Set user and group permissions of /home/your_user/www
+- name: chown {{ linux_user }}:{{ linux_user }} -R /home/{{ linux_user }}/www
+  file:
+    path: /home/{{ linux_user }}/www
+    owner: '{{ linux_user }}'
+    group: '{{ linux_user }}'
+    recurse: yes
+  when: http_server == "apache"

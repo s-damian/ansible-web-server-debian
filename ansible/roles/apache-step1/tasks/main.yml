@@ -1,0 +1,50 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-web-server-debian
+
+# ------------------------------ Install Apache ------------------------------
+# sudo apt-get install apache2
+- name: Installation apache2
+  apt:
+    pkg:
+      - apache2
+      - libapache2-mod-fcgid
+    state: latest
+  when: http_server == "apache"
+
+- name: Start apache2
+  service:
+    name: apache2
+    state: started
+  when: http_server == "apache"
+# ------------------------------ /Install Apache ------------------------------
+
+# ------------------------------ Activate some modules ------------------------------
+- name: sudo a2enmod proxy
+  community.general.apache2_module:
+    state: present
+    name: proxy
+  when: http_server == "apache"
+
+- name: sudo a2enmod proxy_fcgi
+  community.general.apache2_module:
+    state: present
+    name: proxy_fcgi
+  when: http_server == "apache"
+
+- name: sudo a2enmod rewrite
+  community.general.apache2_module:
+    state: present
+    name: rewrite
+  when: http_server == "apache"
+
+- name: sudo a2enconf php8.1-fpm.conf
+  shell: a2enconf php8.1-fpm.conf
+  when: http_server == "apache"
+
+- name: Retart apache2
+  service:
+    name: apache2
+    state: restarted
+  when: http_server == "apache"
+# ------------------------------ /Activate some modules ------------------------------

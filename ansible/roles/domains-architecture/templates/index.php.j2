@@ -68,7 +68,7 @@ $mysqlInfos = getMysqlInfos();
     </head>
     <body>
         <h1>Hello world</h1>
-        <p><b>Nginx version</b> : <?php echo $_SERVER['SERVER_SOFTWARE'] ?></p>
+        <p><b>HTTP server version</b> : <?php echo $_SERVER['SERVER_SOFTWARE'] ?></p>
         <p><b>PHP version</b> : <?php echo phpversion() ?></p>
         <p><b><?php echo $mysqlInfos['distrib'] ?? 'MySQL' ?> version</b> : <?php echo $mysqlInfos['version'] ?? '' ?></p>
     </body>

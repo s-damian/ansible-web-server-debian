@@ -14,11 +14,11 @@
     linux_user: user_test
 
     # Path of your websites in your user directory
-    # /home/{{ linux_user }}/{{ website_path }}/{{ domain }}
-    website_path: www/sites
+    # /home/{{ linux_user }}/www/{{ website_path }}/{{ domain }}
+    website_path: sites
 
     # Set OS and PHP timezone
-    linux_timezone: 'UTC'
+    linux_timezone: UTC
     # ---------- /OS ---------- #
 
     # ---------- Your websites ---------- #
@@ -30,6 +30,11 @@
     # Path of the public directory of your website
     public_path: public
     # ---------- /Your websites ---------- #
+
+    # ---------- HTTP server ---------- #
+    # Supported: "nginx" or "apache"
+    http_server: nginx
+    # ---------- /HTTP server ---------- #
 
     # ---------- MariaDB ---------- #
     # Your MariaDB super-user
@@ -74,6 +79,8 @@
     - php
     - nginx-step1 # Install Nginx
     - nginx-step2 # Conf Nginx
+    - apache-step1 # Install Apache
+    - apache-step2 # Conf Apache
     - mariadb
     - phpmyadmin
     - end

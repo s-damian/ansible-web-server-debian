@@ -1,0 +1,23 @@
+---
+# @author Stephen Damian <contact@devandweb.fr>
+# @link   https://github.com/s-damian/ansible-web-server-debian
+
+- name: Creation de la configuration HTTP du domaine {{ item }} avec comme fichier de conf /etc/apache2/sites-available/{{ item }}.conf
+  template:
+    src: sites-available/http-server.conf.j2
+    dest: /etc/apache2/sites-available/{{ item }}.conf
+
+# Create the .htaccess file for this domain
+- name: Create /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}/.htaccess file
+  template:
+    src: .htaccess.j2
+    dest: /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}/.htaccess
+
+# Enable site
+- name: sudo a2ensite {{ item }}.conf
+  shell:  a2ensite {{ item }}.conf
+
+- name: Reload apache2
+  service:
+    name: apache2
+    state: reloaded

@@ -24,7 +24,7 @@ php_packages:
 timezone: '{{ linux_timezone }}'
 
 # The maximum size in bytes of a file to upload (default: 2M).
-# Must have the same value as "client_max_body_size" from "nginx.conf".
+# - If you use Nginx: Must have the same value as "client_max_body_size" from "nginx.conf".
 upload_max_filesize: "200M"
 
 # Sets the maximum size of data received by the POST method (default: 8M).
