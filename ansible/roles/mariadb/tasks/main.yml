@@ -22,7 +22,7 @@
   shell: apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
   when: mariadb_exist.stat.exists == False
 
-# sudo sh -c 'echo "deb [arch=amd64] https://mirrors.xtom.ee/mariadb/repo/10.6/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
+# sudo sh -c 'echo "deb [arch=amd64] https://mirrors.xtom.ee/mariadb/repo/10.7/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
 - name: Configure apt repository for mariadb {{ version_mariadb }}
   shell: sh -c 'echo "deb [arch=amd64] https://mirrors.xtom.ee/mariadb/repo/{{ version_mariadb }}/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
 
@@ -42,7 +42,7 @@
       - libmariadb3
       - mariadb-backup
       - mariadb-common
-      - python3-mysqldb # n'est pas dans https://mariadb.com/kb/en/installing-mariadb-deb-files/#installing-mariadb-packages-with-apt (mais utile car dépendance)
+      - python3-mysqldb # is not in https://mariadb.com/kb/en/installing-mariadb-deb-files/#installing-mariadb-packages-with-apt (but useful because dependency)
     state: latest
   when: mariadb_exist.stat.exists == False
 # ------------------------------ /Install MariaDB ------------------------------
