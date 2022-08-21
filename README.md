@@ -10,6 +10,7 @@ These **ansible roles** will automate the deployment for you:
 * Install **MariaDB** (supported versions: 10.5, 10.6, 10.7)
 * Install **PHP** (supported versions: 8.0, 8.1)
 * Install **PhpMyAdmin**
+* Create your Nginx Virtual Hosts (one per domain)
 * Create your databases (one per domain)
 * Preparing the skeleton of your websites
 
@@ -80,7 +81,7 @@ ansible-playbook -i /etc/ansible/hosts /etc/ansible/web-server.yml
 * www.your-domain.com/phpmyadmin
 
 
-## Notes
+## Go further
 
 ### Security
 
@@ -93,3 +94,7 @@ You can Configure SSL for your websites (with Certbot for example).
 ### Performance
 
 To improve performance, you can add cache to your Nginx / Apache configuration.
+
+### Send emails
+
+To make your server able to send mails, you can use postfix.

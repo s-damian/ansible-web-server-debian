@@ -9,8 +9,8 @@
   # Variables
   vars:
     # ---------- OS ---------- #
-    # Your linux user
     # REQUIRED
+    # Your linux user
     linux_user: user_test
 
     # Path of your websites in your user directory
@@ -22,10 +22,10 @@
     # ---------- /OS ---------- #
 
     # ---------- Your websites ---------- #
+    # REQUIRED
     # Your domains
     # You must put your domains without the "www." (example: your-domain.com).
     # But you can use a subdomain (example: subdomain.your-domain.com).
-    # REQUIRED
     domains:
       - your-domain.com
     
@@ -39,13 +39,13 @@
     # ---------- /HTTP server ---------- #
 
     # ---------- MariaDB ---------- #
-    # Your MariaDB super-user
     # REQUIRED
+    # Your MariaDB super-user
     mariadb_super_user_username: super_user
     mariadb_super_user_password: test
 
-    # Your prod MariaDB user
     # REQUIRED
+    # Your prod MariaDB user
     mariadb_prod_username: user_prod
     mariadb_prod_password: test
 
