@@ -10,8 +10,8 @@ These **ansible roles** will automate the deployment for you:
 * Install **MariaDB** (supported versions: 10.5, 10.6, 10.7)
 * Install **PHP** (supported versions: 8.0, 8.1)
 * Install **PhpMyAdmin**
-* Create your Nginx Virtual Hosts (one per domain)
-* Create your databases (one per domain)
+* Create your Nginx / Apache Virtual Hosts (one per domain)
+* Create your MariaDB databases (one per domain)
 * Preparing the skeleton of your websites
 
 [![Ansible](https://raw.githubusercontent.com/s-damian/medias/main/technos/ansible.webp)](https://github.com/s-damian)
