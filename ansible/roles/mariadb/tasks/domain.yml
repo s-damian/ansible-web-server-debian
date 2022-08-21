@@ -2,9 +2,9 @@
 # @author Stephen Damian <contact@devandweb.fr>
 # @link   https://github.com/s-damian/ansible-web-server-debian
 
-- name: Creation of the DB {{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod
+- name: Creation of the DB {{ item | regex_replace('\\.', '-') }}_prod
   mysql_db:
-    name: "{{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod"
+    name: "{{ item | regex_replace('\\.', '-') }}_prod"
     state: present
     collation: '{{ mariadb_collation }}'
     encoding: '{{ mariadb_encoding }}'
@@ -15,11 +15,11 @@
 
 # CREATE USER 'user_prod'@'localhost' IDENTIFIED BY 'XXXXX';
 # GRANT ALL PRIVILEGES ON domain_user_prod.* to 'user_prod'@'localhost';
-- name: Create user {{ mariadb_prod_username }} for the DB {{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod
+- name: Create user {{ mariadb_prod_username }} for the DB {{ item | regex_replace('\\.', '-') }}_prod
   mysql_user:
     name: '{{ mariadb_prod_username }}'
     password: '{{ mariadb_prod_password }}'
-    priv: "{{ item | regex_replace('.[a-z]{2,20}$', '') }}_prod.*:ALL"
+    priv: "{{ item | regex_replace('\\.', '-') }}_prod.*:ALL"
     login_host: '{{ mariadb_host }}'
     login_port: '{{ mariadb_port }}'
     state: present

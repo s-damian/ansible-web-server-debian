@@ -22,7 +22,9 @@
     # ---------- /OS ---------- #
 
     # ---------- Your websites ---------- #
-    # Your domains (without "www.". example: your-domain.com)
+    # Your domains
+    # You must put your domains without the "www." (example: your-domain.com).
+    # But you can use a subdomain (example: subdomain.your-domain.com).
     # REQUIRED
     domains:
       - your-domain.com
