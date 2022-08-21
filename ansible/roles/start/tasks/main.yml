@@ -11,4 +11,5 @@
   apt:
     pkg:
       - unzip
+      - wget
     state: latest
