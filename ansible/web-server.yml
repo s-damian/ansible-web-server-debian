@@ -30,6 +30,7 @@
       - your-domain.com
     
     # Path of the public directory of your website
+    # /home/{{ linux_user }}/www/{{ website_path }}/{{ domain }}/{{ public_path }}
     public_path: public
     # ---------- /Your websites ---------- #
 
