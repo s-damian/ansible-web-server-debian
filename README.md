@@ -2,9 +2,9 @@
 
 ## Ansible Playbook : LEMP or LAMP Server on Debian
 
-This ansible script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server** on **Debian 11** server.
+This Ansible script allows you to automate the configuration of a **LEMP web server** or a **LAMP web server** on **Debian 11** server.
 
-These **ansible roles** will automate the deployment for you:
+These **Ansible roles** will automate the deployment for you:
 
 * Install **Nginx** or **Apache**
 * Install **MariaDB** (supported versions: 10.5, 10.6, 10.7)
@@ -25,7 +25,7 @@ These **ansible roles** will automate the deployment for you:
 
 [![Freelance Web](https://raw.githubusercontent.com/s-damian/medias/main/s-damian-logo.webp)](https://github.com/s-damian)
 
-This Ansible script was made by [Stephen Damian](https://www.linkedin.com/in/stephen-damian/) [![Stephen Damian - LinkedIn](https://raw.githubusercontent.com/s-damian/medias/main/favicon-linkedin.png)](https://www.linkedin.com/in/stephen-damian/)
+This Ansible script was made by [Stephen Damian](https://github.com/s-damian)
 
 
 ## Getting Started
@@ -53,7 +53,7 @@ adduser user_test
 sudo apt-get update && sudo apt-get upgrade
 ```
 
-### Install ansible:
+### Install Ansible:
 
 ```
 sudo apt-get install ansible
@@ -69,7 +69,7 @@ You must configure at least all the **REQUIRED** lines.
 
 Send the **ansible** folder present in this package to the **/etc** folder of your Debian server.
 
-### Run the ansible script:
+### Run the Ansible script:
 
 ```
 ansible-playbook -i /etc/ansible/hosts /etc/ansible/web-server.yml
