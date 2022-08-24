@@ -23,9 +23,7 @@ These **Ansible roles** will automate the deployment for you:
 
 ### Author
 
-[![Freelance Web](https://raw.githubusercontent.com/s-damian/medias/main/s-damian-logo.webp)](https://github.com/s-damian)
-
-This Ansible script was made by [Stephen Damian](https://github.com/s-damian)
+This Ansible Ansible Playbook was made by [Stephen Damian](https://github.com/s-damian)
 
 
 ## Getting Started
