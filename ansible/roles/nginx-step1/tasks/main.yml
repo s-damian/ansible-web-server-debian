@@ -3,7 +3,6 @@
 # @link   https://github.com/s-damian/ansible-web-server-debian
 
 # ------------------------------ Install Nginx ------------------------------
-# sudo apt install curl gnupg2 ca-certificates lsb-release
 - name: Installation of useful packages
   apt:
     pkg:
@@ -11,40 +10,23 @@
       - gnupg2
       - ca-certificates
       - lsb-release
+      - debian-archive-keyring
     state: latest
   when: http_server == "nginx"
 
-# sudo sh -c 'echo "deb http://nginx.org/packages/debian $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx.list'
+- name: curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+  shell: curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+  when: http_server == "nginx"
+
 - name: Configure apt repository for stable nginx packages
-  shell: sh -c 'echo "deb http://nginx.org/packages/debian $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx.list'
+  shell: sh -c 'echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/debian $(lsb_release -sc) nginx" > /etc/apt/sources.list.d/nginx.list'
   when: http_server == "nginx"
 
-# sudo mkdir /opt/nginx
-- name: Creation of the /opt/nginx folder to accommodate nginx_signing.key
-  file:
-    path: /opt/nginx
-    state: directory
-  when: http_server == "nginx"
-
-# sudo curl -fsSL -o /opt/nginx/nginx_signing.key https://nginx.org/keys/nginx_signing.key
-- name: Import an official nginx signing key so apt can verify the authenticity of packages
-  get_url:
-    url: https://nginx.org/keys/nginx_signing.key
-    dest: /opt/nginx
-  when: http_server == "nginx"
-
-# sudo apt-key add /opt/nginx/nginx_signing.key
-- name: apt-key add /opt/nginx/nginx_signing.key
-  shell: apt-key add /opt/nginx/nginx_signing.key
-  when: http_server == "nginx"
-
-# sudo apt-get update
 - name: Update
   apt:
     update_cache: yes
   when: http_server == "nginx"
 
-# sudo apt-get install nginx
 - name: Install nginx
   apt:
     name: nginx
