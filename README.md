@@ -7,8 +7,8 @@ This Ansible script allows you to automate the configuration of a **LEMP web ser
 These **Ansible roles** will automate the deployment for you:
 
 * Install **Nginx** or **Apache**
-* Install **MariaDB** (supported versions: 10.5, 10.6, 10.7)
-* Install **PHP** (supported versions: 8.0, 8.1)
+* Install **MariaDB** (supported versions: 10.5, 10.6, 10.7, 10.8, 10.9, 10.10)
+* Install **PHP** (supported versions: 8.0, 8.1, 8.2)
 * Install **PhpMyAdmin**
 * Create your Nginx / Apache Virtual Hosts (one per domain)
 * Create your MariaDB databases (one per domain)
