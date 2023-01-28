@@ -14,4 +14,16 @@
         Order allow,deny
         Deny from all
     </FilesMatch>
+
+    # [Security for Laravel] Objective: Disallow PHP execution in the uploads directory
+    <Directory /home/daw_steph/www/apps/app-show-backups/prod/public/storage>
+        <FilesMatch "(?i)\.(php|php3?|phtml)$">
+            Order allow,deny
+            Deny from all
+        </FilesMatch>
+    </Directory>
+
+    <FilesMatch \.php$>
+      SetHandler "proxy:unix:/run/php/php{{ version_php }}-fpm.sock|fcgi://localhost"
+    </FilesMatch>
 </VirtualHost>

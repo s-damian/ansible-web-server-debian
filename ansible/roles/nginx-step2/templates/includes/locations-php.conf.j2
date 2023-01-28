@@ -5,3 +5,8 @@ location ~ \.php$ {
     fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
     include fastcgi_params;
 }
+
+# Useful security for Laravel
+location ~ /storage/.*\.php$ {
+    return 404;
+}
