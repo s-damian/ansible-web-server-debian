@@ -13,8 +13,6 @@
     login_user: '{{ mariadb_super_user_username }}'
     login_password: '{{ mariadb_super_user_password }}'
 
-# CREATE USER 'user_prod'@'localhost' IDENTIFIED BY 'XXXXX';
-# GRANT ALL PRIVILEGES ON domain_user_prod.* to 'user_prod'@'localhost';
 - name: Create user {{ mariadb_prod_username }} for the DB {{ item | regex_replace('\\.', '-') }}_prod
   mysql_user:
     name: '{{ mariadb_prod_username }}'

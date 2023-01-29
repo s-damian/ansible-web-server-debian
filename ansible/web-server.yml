@@ -61,19 +61,20 @@
     # PhpMyAdmin Path
     phpmyadmin_path: phpmyadmin
 
+    # REQUIRED
     phpmyadmin_blowfish_secret: '3K2*%<+a^#^!)1?ti~Pr$#Tzmp_$t5Mj'
     # ---------- /PhpMyAdmin ---------- #
 
     # ---------- Versions ---------- #
     # PHP version. Supported: 8.0, 8.1, 8.2
-    version_php: 8.2
+    version_php: "8.2"
 
     # MariaDB version. Supported: 10.5, 10.6, 10.7, 10.8, 10.9, 10.10
-    version_mariadb: 10.7
+    version_mariadb: "10.10"
 
     # PhpMyAdmin version
     # See available versions here: https://www.phpmyadmin.net/files/
-    version_phpmyadmin: 5.2.0
+    version_phpmyadmin: "5.2.0"
     # ---------- /Versions ---------- #
 
   # Roles

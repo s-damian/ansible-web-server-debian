@@ -74,8 +74,8 @@
     name: ssl
   when: http_server == "apache"
 
-- name: sudo a2enconf php8.1-fpm.conf
-  shell: a2enconf php8.1-fpm.conf
+- name: sudo a2enconf php{{ version_php }}-fpm.conf
+  shell: a2enconf php{{ version_php }}-fpm.conf
   when: http_server == "apache"
 
 - name: Retart apache2

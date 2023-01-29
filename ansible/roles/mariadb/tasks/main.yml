@@ -17,22 +17,18 @@
   register: mariadb_exist
 
 # Import the GnuPG Signing Key
-# sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 - name: apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
   shell: apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
   when: mariadb_exist.stat.exists == False
 
-# sudo sh -c 'echo "deb [arch=amd64] https://mirror.mva-n.net/mariadb/repo/10.10/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
 - name: Configure apt repository for mariadb {{ version_mariadb }}
   shell: sh -c 'echo "deb [arch=amd64] https://mirror.mva-n.net/mariadb/repo/{{ version_mariadb }}/debian $(lsb_release -sc) main" > /etc/apt/sources.list.d/mariadb.list'
 
-# sudo apt-get update
 - name: apt-get update
   apt:
     update_cache: yes
   when: mariadb_exist.stat.exists == False
 
-# sudo apt-get install mariadb-server mariadb-client libmariadb3 mariadb-backup mariadb-common python-mysqldb
 - name: Install MariaDB
   apt:
     pkg:
@@ -72,8 +68,6 @@
   shell: echo "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" | mysql -uroot
 # ------------------------------ /mysql_secure_installation ------------------------------
 
-# CREATE USER 'super_user'@'localhost' IDENTIFIED BY 'XXXXX';
-# GRANT ALL PRIVILEGES ON *.* to 'super_user'@'localhost' WITH GRANT OPTION;
 - name: Create user {{ mariadb_super_user_username }}
   mysql_user:
     name: '{{ mariadb_super_user_username }}'

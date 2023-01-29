@@ -10,7 +10,6 @@ php_packages:
   - php{{ version_php }}-cli
   - php{{ version_php }}-curl
   - php{{ version_php }}-mbstring
-  #- php{{ version_php }}-json  # since PHP 8.0 is already installed by default
   - php{{ version_php }}-xml
   - php{{ version_php }}-zip
   - php{{ version_php }}-mysql

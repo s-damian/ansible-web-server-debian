@@ -16,7 +16,7 @@
     </FilesMatch>
 
     # [Security for Laravel] Objective: Disallow PHP execution in the uploads directory
-    <Directory /home/daw_steph/www/apps/app-show-backups/prod/public/storage>
+    <Directory /home/{{ linux_user }}/www/{{ website_path }}/{{ item }}/{{ public_path }}/storage>
         <FilesMatch "(?i)\.(php|php3?|phtml)$">
             Order allow,deny
             Deny from all
